@@ -26,6 +26,15 @@ namespace RestSharpProject.Methods.Put
 
         }
 
+        public IRestResponse UpdateRegisteredUserWithPatch(string _endpoint, dynamic _payload)
+        {
+            var client = apiCalls.SetUrl(_endpoint);
+            var jsonString = ModifyContent.SerializeJson(_payload);
+            var request = apiRequests.CreatePatchRequest(jsonString);
+            var response = apiCalls.GetResponse(client, request);
+            return response;
+        }
+
 
     }
 }

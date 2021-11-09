@@ -5,6 +5,7 @@ using System.Net;
 using NUnit.Framework;
 using RestSharpProject.Pages;
 using RestSharpProject.Methods.Put;
+using RestSharpProject.Framework.DataProviders;
 
 namespace RestSharpProject.Tests
 {
@@ -34,6 +35,29 @@ namespace RestSharpProject.Tests
             });
            
 
+        }
+
+
+        [TestCaseSource(typeof(DataForPatch), nameof(DataForPatch.TestDataForPatch))]
+        public void PatchUserSuccesfully(string _name, string _job)
+        {
+            Assert.Multiple(() =>
+            {
+                var _patchUser = new UpdateUserRequestPage
+                {
+                    name = _name,
+                    job = _job,
+                };
+
+                var api = new UpdateUser();
+                var response = api.UpdateRegisteredUserWithPatch("api/users/2", _patchUser);
+                var code = (int)statusCode;
+                Assert.AreEqual(code, 200);
+                var content = ModifyContent.DeserializeJson<UpdateUserResponsePage>(response);
+                Assert.AreEqual(content.name, _name);
+                Assert.AreEqual(content.job, _job);
+
+            });
         }
 
 
