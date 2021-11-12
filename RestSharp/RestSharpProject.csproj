@@ -12,4 +12,10 @@
     <PackageReference Include="RestSharp" Version="106.12.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Framework\DataProviders\CSVData.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

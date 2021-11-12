@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using RestSharpProject.Framework.DataProviders;
 using RestSharpProject.Methods.Post;
 using RestSharpProject.Pages.PostPages;
 using System;
@@ -33,5 +34,28 @@ namespace RestSharpProject.Tests
             
             
         }
+
+        [TestCaseSource(typeof(DataForPost), nameof(DataForPost.GetDataFromCsv))]
+        public void CreateUserSampleWithCsv(string _name, string _job)
+        {
+            var _createUser = new CreateUserRequestPage
+            {
+                name = _name,
+                job = _job
+            };
+
+            var api = new CreateUserRequest();
+            var resposne = api.CreateUserForRequresIn("api/users", _createUser);
+            statusCode = resposne.StatusCode;
+            var code = (int)statusCode;
+            Assert.AreEqual(201, code);
+            var content = ModifyContent.DeserializeJson<CreateUserResponsePage>(resposne);
+            Assert.AreEqual(content.name, _name);
+            Assert.AreEqual(content.job, _job);
+
+
+
+        }
+
     }
 }
