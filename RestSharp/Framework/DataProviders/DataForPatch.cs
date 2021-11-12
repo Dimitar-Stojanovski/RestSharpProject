@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace RestSharpProject.Framework.DataProviders
@@ -14,5 +16,7 @@ namespace RestSharpProject.Framework.DataProviders
             new object [] {"Name 4", "Job 4"},
             new object [] {"Name 5", "Job 5"}
         };
+
+        
     }
 }

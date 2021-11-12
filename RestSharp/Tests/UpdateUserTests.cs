@@ -51,8 +51,9 @@ namespace RestSharpProject.Tests
 
                 var api = new UpdateUser();
                 var response = api.UpdateRegisteredUserWithPatch("api/users/2", _patchUser);
-                var code = (int)statusCode;
-                Assert.AreEqual(code, 200);
+                statusCode = response.StatusCode;
+                Console.WriteLine(statusCode);
+                Assert.AreEqual((int)statusCode, 200);
                 var content = ModifyContent.DeserializeJson<UpdateUserResponsePage>(response);
                 Assert.AreEqual(content.name, _name);
                 Assert.AreEqual(content.job, _job);
