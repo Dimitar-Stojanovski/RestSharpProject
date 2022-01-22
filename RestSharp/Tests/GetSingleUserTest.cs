@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
-using RestSharpProject.Methods.Get;
+using RestSharpProject.Framework.Utils;
 using RestSharpProject.Pages;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace RestSharpProject.Tests
 {
@@ -13,10 +12,10 @@ namespace RestSharpProject.Tests
         public HttpStatusCode statusCode;
 
         [Test]
-        public void GetSingleUser()
+        public async Task GetSingleUser()
         {
-            var api = new GetSingleUsers();
-            var response = api.GetSingleUser("api/users/2");
+            var api = new RestResponses();
+            var response = await api.CreateGetResponse("api/users/2");
             Console.WriteLine(response.StatusCode);
             var user = ModifyContent.DeserializeJson<SingleUserPage>(response);
             Assert.AreEqual(2, user.data.id);
@@ -24,10 +23,10 @@ namespace RestSharpProject.Tests
         }
 
         [Test]
-        public void GetSingleUserNotFound()
+        public async Task GetSingleUserNotFound()
         {
-            var api = new GetSingleUsers();
-            var response = api.GetSingleUser("api/users/23");
+            var api = new RestResponses();
+            var response = await api.CreateGetResponse("api/users/23");
             statusCode = response.StatusCode;
             var code = (int)statusCode;
             Assert.AreEqual(404, code);

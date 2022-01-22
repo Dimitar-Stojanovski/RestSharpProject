@@ -8,7 +8,7 @@ namespace RestSharpProject
 {
     public static class ModifyContent
     {
-        public static T DeserializeJson<T>(IRestResponse response)
+        public static T DeserializeJson<T>(RestResponse response)
         {
             var content = response.Content;
             return JsonSerializer.Deserialize<T>(content);

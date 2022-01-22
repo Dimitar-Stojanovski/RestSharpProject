@@ -5,6 +5,8 @@ using System.Net;
 using NUnit.Framework;
 using RestSharpProject.Pages;
 using RestSharpProject.Methods.Put;
+using System.Threading.Tasks;
+using RestSharpProject.Framework.Utils;
 
 namespace RestSharpProject.Tests
 {
@@ -13,9 +15,9 @@ namespace RestSharpProject.Tests
         private HttpStatusCode statusCode;
 
         [Test]
-        public void UpdateUserSuccessfully()
+        public async Task UpdateUserSuccessfully()
         {
-            Assert.Multiple(() =>
+            Assert.Multiple(async() =>
             {
                 var _updatedUser = new UpdateUserRequestPage
                 {
@@ -23,8 +25,8 @@ namespace RestSharpProject.Tests
                     job = "President"
                 };
 
-                var api = new UpdateUser();
-                var response = api.UpdateRegisteredUser("api/users/2", _updatedUser);
+                var api = new RestResponses();
+                var response = await api.CreatePutResponse("api/users/2", _updatedUser);
                 statusCode = response.StatusCode;
                 var code = (int)statusCode;
                 Assert.AreEqual(code, 200);

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
+using System.Threading.Tasks;
 using NUnit.Framework;
-using RestSharpProject.Methods.Get;
+using RestSharpProject.Framework.Utils;
 using RestSharpProject.Pages;
 
 namespace RestSharpProject.Tests
@@ -13,10 +12,10 @@ namespace RestSharpProject.Tests
         private HttpStatusCode statusCode;
 
         [Test]
-        public void GetListTest()
+        public async Task GetListTest()
         {
-            var api = new GetListResources();
-            var response = api.GetListofResources("api/unknown");
+            var api = new RestResponses();
+            var response = await api.CreateGetResponse("api/unknown");
             statusCode = response.StatusCode;
             var code = (int)statusCode;
             Console.WriteLine(code);

@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RestSharpProject
 {
-    public class APICalls
+    public class RestClients
     {
         private RestClient restClient;
         private const string _URL = "https://reqres.in/";
@@ -18,9 +19,9 @@ namespace RestSharpProject
             return restClient;
         }
 
-        public IRestResponse GetResponse(RestClient restClient, RestRequest restRequest)
+        public async Task <RestResponse> GetResponseAsync(RestClient restClient, RestRequest restRequest)
         {
-            return restClient.Execute(restRequest);
+            return await restClient.ExecuteAsync(restRequest);
         }
     }
 }

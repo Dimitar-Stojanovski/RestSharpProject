@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using NUnit.Framework;
-using RestSharpProject.Methods.Delete;
+using System.Threading.Tasks;
+using RestSharpProject.Framework.Utils;
 
 namespace RestSharpProject.Tests
 {
@@ -12,10 +13,10 @@ namespace RestSharpProject.Tests
         private HttpStatusCode statusCode;
 
         [Test]
-        public void DeleteUser()
+        public async Task DeleteUser()
         {
-            var api = new DeleteUser();
-            var response = api.DeleteUserSuccesfully("api/users/2");
+            var api = new RestResponses();
+            var response = await api.CreateDeleteResponse("api/users/2");
             statusCode = response.StatusCode;
             var code = (int)statusCode;
             Assert.AreEqual(code, 204);

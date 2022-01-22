@@ -1,10 +1,8 @@
 ﻿using NUnit.Framework;
+using RestSharpProject.Framework.Utils;
 using RestSharpProject.Pages.PostPages;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using RestSharpProject.Pages;
-using RestSharpProject.Methods.Post;
+using System.Threading.Tasks;
 
 namespace RestSharpProject.Tests
 {
@@ -13,7 +11,7 @@ namespace RestSharpProject.Tests
         private HttpStatusCode statusCode;
 
         [Test]
-        public void RegisterUser()
+        public async Task RegisterUser()
         {
             var _registeredUser = new RegisterSuccesfullRequestPage
             {
@@ -21,8 +19,8 @@ namespace RestSharpProject.Tests
                 password = "pistol"
             };
 
-            var api = new RegisterSuccesfull();
-            var response = api.RegisterUserSuccessfully("api/register", _registeredUser);
+            var api = new RestResponses();
+            var response = await api.CreatePostResponse("api/register", _registeredUser);
             statusCode = response.StatusCode;
             var code = (int)statusCode;
             Assert.AreEqual(code, 200);
